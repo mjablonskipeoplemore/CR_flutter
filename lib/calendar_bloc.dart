@@ -27,8 +27,9 @@ class CalendarBloc extends Bloc<CalendarBlocEvent, CalendarBlocState> {
   FutureOr<void> _onAddCalendarEventEvent(AddCalendarEventEvent event, Emitter<CalendarBlocState> emit) async {
     emit(state.copyWith(isSyncing: true));
 
-    await _calendarRepository.addCalendarEvent(event.event);
-    _updateEvents(emit);
+    _calendarRepository.addCalendarEvent(event.event).then((value) {
+      _updateEvents(emit);
+    });
   }
 
   void _updateEvents(Emitter<CalendarBlocState> emit) async {
