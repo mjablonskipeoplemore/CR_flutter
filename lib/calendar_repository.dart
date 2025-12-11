@@ -13,7 +13,7 @@ class CalendarRepository {
 
   Completer<void>? _syncCompleter;
 
-  late final Timer timer = Timer.periodic(const Duration(milliseconds: 200), _onTimerTick);
+  late final Timer timer = Timer.periodic(const Duration(milliseconds: 50), _onTimerTick);
 
   Future<List<CalendarEvent>> getCalendarEvents() async {
     // Simulate some data processing
