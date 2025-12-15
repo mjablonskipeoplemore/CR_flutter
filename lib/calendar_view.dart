@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'calendar_event.dart';
+import 'calendar_model.dart';
 import 'calendar_type.dart';
 
 class CalendarView extends StatefulWidget {
@@ -20,6 +20,8 @@ class _CalendarViewState extends State<CalendarView> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback(_scrollToBottom);
+
     return BlocConsumer<CalendarBloc, CalendarBlocState>(
       bloc: CalendarBloc(),
       builder: (context, state) {
@@ -42,7 +44,7 @@ class _CalendarViewState extends State<CalendarView> {
   Widget _buildCalendarWeek(CalendarBlocState state) {
     if (state.isSyncing) return Center(child: CircularProgressIndicator());
 
-    final List<Widget> widgets = [_buildTitle(state), for (CalendarEvent event in state.events) Text(event.title)];
+    final List<Widget> widgets = [_buildTitle(state), for (CalendarModel event in state.events) Text(event.title)];
 
     return SingleChildScrollView(
       controller: scrollController,
@@ -52,5 +54,15 @@ class _CalendarViewState extends State<CalendarView> {
 
   Widget _buildTitle(CalendarBlocState state) {
     return Text(state.selectedCalendarType.calendarTitle()).withAnimation();
+  }
+
+  void _scrollToBottom(Duration _) {
+    if (scrollController.hasClients) {
+      scrollController.animateTo(
+        scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    }
   }
 }

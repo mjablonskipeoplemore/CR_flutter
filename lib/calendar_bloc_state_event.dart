@@ -17,13 +17,13 @@ class CalendarBlocState {
 
   final DateTime selectedDate;
   final CalendarType selectedCalendarType;
-  final List<CalendarEvent> events;
+  final List<CalendarModel> events;
   final bool isSyncing;
 
   CalendarBlocState copyWith({
     DateTime? selectedDate,
     CalendarType? selectedCalendarType,
-    List<CalendarEvent>? events,
+    List<CalendarModel>? events,
     bool? isSyncing,
   }) => CalendarBlocState(
     selectedDate: selectedDate ?? this.selectedDate,
@@ -35,7 +35,7 @@ class CalendarBlocState {
   @override
   String toString() {
     String eventsString = "";
-    for (CalendarEvent event in events) {
+    for (CalendarModel event in events) {
       eventsString += "$event, ";
     }
     return 'CalendarBlocState(selectedDate: $selectedDate, selectedCalendarType: '
@@ -59,7 +59,7 @@ class SelectCalendarTypeEvent extends CalendarBlocEvent {
 }
 
 class AddCalendarEventEvent extends CalendarBlocEvent {
-  final CalendarEvent event;
+  final CalendarModel event;
 
   AddCalendarEventEvent({required this.event});
 }

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:cr/calendar_event.dart';
+import 'package:cr/calendar_model.dart';
 
 import 'calendar_api.dart';
 
@@ -8,14 +8,14 @@ class CalendarRepository {
   CalendarRepository(this._calendarApi);
 
   final CalendarApi _calendarApi;
-  final List<CalendarEvent> _remoteEventsCached = [];
-  final List<CalendarEvent> _pendingEvents = [];
+  final List<CalendarModel> _remoteEventsCached = [];
+  final List<CalendarModel> _pendingEvents = [];
 
   Completer<void>? _syncCompleter;
 
   late final Timer timer = Timer.periodic(const Duration(milliseconds: 50), _onTimerTick);
 
-  Future<List<CalendarEvent>> getCalendarEvents() async {
+  Future<List<CalendarModel>> getCalendarEvents() async {
     // Simulate some data processing
     await Future<void>.delayed(const Duration(milliseconds: 700));
 
@@ -23,7 +23,7 @@ class CalendarRepository {
     _syncCompleter = Completer.sync();
 
     try {
-      final List<CalendarEvent> events = await _calendarApi.getFakeEvents();
+      final List<CalendarModel> events = await _calendarApi.getFakeEvents();
       _remoteEventsCached.addAll(events);
 
       return events;
@@ -35,7 +35,7 @@ class CalendarRepository {
     }
   }
 
-  Future<void> addCalendarEvent(CalendarEvent event) async {
+  Future<void> addCalendarEvent(CalendarModel event) async {
     await _syncCompleter?.future;
     _syncCompleter = Completer.sync();
 

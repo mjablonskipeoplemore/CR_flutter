@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:cr/calendar_api.dart';
-import 'package:cr/calendar_event.dart';
+import 'package:cr/calendar_model.dart';
 import 'package:cr/calendar_repository.dart';
 import 'package:cr/calendar_type.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,7 +33,7 @@ class CalendarBloc extends Bloc<CalendarBlocEvent, CalendarBlocState> {
   }
 
   Future<void> _updateEvents(Emitter<CalendarBlocState> emit) async {
-    final List<CalendarEvent> events = await _calendarRepository.getCalendarEvents();
+    final List<CalendarModel> events = await _calendarRepository.getCalendarEvents();
 
     emit(state.copyWith(events: events, isSyncing: false));
   }
