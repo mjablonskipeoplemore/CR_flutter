@@ -44,7 +44,7 @@ class _CalendarViewState extends State<CalendarView> {
   Widget _buildCalendarWeek(CalendarBlocState state) {
     if (state.isSyncing) return Center(child: CircularProgressIndicator());
 
-    final List<Widget> widgets = [_buildTitle(state), for (CalendarModel event in state.events) Text(event.title)];
+    final List<Widget> widgets = [_buildTitle(state), for (CalendarModel event in state.calendarEvents) Text(event.title)];
 
     return SingleChildScrollView(
       controller: scrollController,

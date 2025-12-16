@@ -4,38 +4,38 @@ class CalendarBlocState {
   CalendarBlocState({
     required this.selectedDate,
     required this.selectedCalendarType,
-    required this.events,
+    required this.calendarEvents,
     required this.isSyncing,
   });
 
   factory CalendarBlocState.initial() => CalendarBlocState(
     selectedDate: DateTime.now(),
     selectedCalendarType: CalendarType.month,
-    events: [],
+    calendarEvents: [],
     isSyncing: false,
   );
 
   final DateTime selectedDate;
   final CalendarType selectedCalendarType;
-  final List<CalendarModel> events;
+  final List<CalendarModel> calendarEvents;
   final bool isSyncing;
 
   CalendarBlocState copyWith({
     DateTime? selectedDate,
     CalendarType? selectedCalendarType,
-    List<CalendarModel>? events,
+    List<CalendarModel>? calendarEvents,
     bool? isSyncing,
   }) => CalendarBlocState(
     selectedDate: selectedDate ?? this.selectedDate,
     selectedCalendarType: selectedCalendarType ?? this.selectedCalendarType,
-    events: events ?? this.events,
+    calendarEvents: calendarEvents ?? this.calendarEvents,
     isSyncing: isSyncing ?? this.isSyncing,
   );
 
   @override
   String toString() {
     String eventsString = "";
-    for (CalendarModel event in events) {
+    for (CalendarModel event in calendarEvents) {
       eventsString += "$event, ";
     }
     return 'CalendarBlocState(selectedDate: $selectedDate, selectedCalendarType: '

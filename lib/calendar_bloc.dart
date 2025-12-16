@@ -35,6 +35,6 @@ class CalendarBloc extends Bloc<CalendarBlocEvent, CalendarBlocState> {
   Future<void> _updateEvents(Emitter<CalendarBlocState> emit) async {
     final List<CalendarModel> events = await _calendarRepository.getCalendarEvents();
 
-    emit(state.copyWith(events: events, isSyncing: false));
+    emit(state.copyWith(calendarEvents: events, isSyncing: false));
   }
 }
